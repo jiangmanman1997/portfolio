@@ -1,32 +1,42 @@
-# React + TypeScript + Vite
+# 安静的鸟 · 个人作品集
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+羊毛毡插画风格的个人作品集网站：草原上有一只走来走去的小羊。
+基于 **React + TypeScript + Vite + Tailwind CSS** 构建，淡色主题、可爱风。
 
-Currently, two official plugins are available:
+## 页面
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+| 路由 | 说明 |
+| --- | --- |
+| `/` | 首页：草原插画背景（忽闪的太阳、漂移的云朵、大片绿色草原）+ 正常迈步走来走去的小羊 + 大标题与简介 |
+| `/projects` | 作品集：项目卡片列表（标题、描述、技术栈标签），卡片右上角小羊图标，空白处羊脚印点缀 |
+| `/contact` | 联系：个人简介 + 邮箱 / GitHub 入口 |
 
-## React Compiler
+## 技术栈
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **React 19** + **TypeScript** — 函数式组件 + hooks
+- **Vite 8** — 构建与开发服务器
+- **Tailwind CSS v4**（`@tailwindcss/vite` 插件）— 全部样式
+- **react-router-dom 7** — 多页面路由
 
-## Expanding the Oxlint configuration
+## 展示
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+![首页](screenshots/home.png)
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+![作品集](screenshots/projects.png)
+
+![联系](screenshots/contact.png)
+
+## 快速开始
+
+```bash
+npm install
+npm run dev      # 开发服务器
+npm run build    # 生产构建（产物在 dist/）
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## 目录结构
+
+- `src/pages/` — 页面（Home / Projects / Contact）
+- `src/components/` — 共享组件（Header、Sheep、SheepIcon）
+
+> 注：`BrowserRouter` 部署到静态托管时，直接访问 `/projects` 等深层路径需要 SPA fallback（或改用 `HashRouter`）。
