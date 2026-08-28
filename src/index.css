@@ -1,0 +1,88 @@
+@import "tailwindcss";
+
+/* ============ 太阳：忽闪忽闪 + 光晕 ============ */
+.sun {
+  position: absolute;
+  right: 12%;
+  top: 8%;
+  width: 96px;
+  height: 96px;
+  animation: sun-pulse 1.5s ease-in-out infinite;
+}
+.sun svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+/* 外层光晕：柔和扩散，忽明忽暗 */
+.sun-glow {
+  position: absolute;
+  inset: -35%;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(253, 224, 71, 0.55) 0%, rgba(253, 224, 71, 0) 70%);
+  animation: sun-glow-pulse 1.5s ease-in-out infinite;
+}
+@media (min-width: 768px) {
+  .sun { width: 144px; height: 144px; }
+}
+@keyframes sun-pulse {
+  0%, 100% { transform: scale(1); }
+  30%      { transform: scale(1.04); }
+  60%      { transform: scale(0.97); }
+}
+@keyframes sun-glow-pulse {
+  0%, 100% { opacity: 0.5; }
+  50%      { opacity: 1; }
+}
+
+/* ============ 小羊：正常迈步 + 走到头转身 ============ */
+/* 0-45% 向右走，50% 瞬间转身，50-95% 向左走，95-100% 转身回正 */
+@keyframes sheep-walk {
+  0%   { left: -14%; transform: scaleX(1);  animation-timing-function: ease-in-out; }
+  45%  { left: 92%;  transform: scaleX(1);  animation-timing-function: step-end; }
+  50%  { left: 92%;  transform: scaleX(-1); animation-timing-function: ease-in-out; }
+  95%  { left: -14%; transform: scaleX(-1); animation-timing-function: step-end; }
+  100% { left: -14%; transform: scaleX(1); }
+}
+
+/* 迈步：腿绕髋部前后摆动 */
+@keyframes leg-step {
+  from { transform: rotate(-22deg); }
+  to   { transform: rotate(22deg); }
+}
+
+/* 行走时的上下颠簸（配合迈步节奏） */
+@keyframes sheep-bob {
+  0%, 100% { transform: translateY(0) rotate(-1.5deg); }
+  50%      { transform: translateY(-4px) rotate(1.5deg); }
+}
+
+/* 小羊本体：绝对定位在草地上层，靠 left 动画横穿屏幕 */
+.sheep {
+  position: absolute;
+  bottom: 20%;
+  z-index: 5;
+  width: 96px;
+  animation: sheep-walk 16s linear infinite;
+}
+.sheep svg {
+  display: block;
+  width: 100%;
+  animation: sheep-bob 0.6s ease-in-out infinite;
+}
+/* 对角腿同相位：左后 + 右前 一组，右后 + 左前 反向一组 */
+.sheep .leg-a { animation: leg-step 0.6s ease-in-out infinite alternate; }
+.sheep .leg-b { animation: leg-step 0.6s ease-in-out infinite alternate-reverse; }
+@media (min-width: 768px) {
+  .sheep { width: 140px; }
+}
+
+/* ============ 云朵 ============ */
+@keyframes cloud-drift {
+  from { transform: translateX(-6vw); }
+  to   { transform: translateX(6vw); }
+}
+.cloud {
+  position: absolute;
+  animation: cloud-drift 28s ease-in-out infinite alternate;
+}
